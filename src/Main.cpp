@@ -7,24 +7,68 @@
 #include "FileHandler.hpp"
 using namespace std;
 
-// int main()
-// {
-//     BagliListe *liste = new BagliListe();
+void swapNodesBetweenLinkedLists(BagliListe &a, BagliListe &b, int indexA, int indexB)
+{
+    Dugum *nodeA = a.get(indexA);
+    Dugum *nodeB = b.get(indexB);
 
-//     liste->ekle(11);
-//     liste->ekle(22);
-//     liste->ekle(33);
-//     liste->ekle(44);
-//     liste->ekle(55);
+    if (!nodeA || !nodeB)
+    {
+        std::cout << "Geçersiz indis!" << std::endl;
+        return;
+    }
 
-//     liste->yazdir();
+    int tempData = nodeA->veri;
+    nodeA->veri = nodeB->veri;
+    nodeB->veri = tempData;
+}
 
-//     liste->cikar();
-//     liste->yazdir();
-// }
+void SwapLinkedLists()
+{
+    ifstream inputFile("Sayilar.txt");
+    if (!inputFile.is_open())
+    {
+        std::cerr << "Dosya acilamadi!" << endl;
+    }
+
+    BagliListe onlarBasamagi;
+    BagliListe birlerBasamagi;
+
+    string line;
+    getline(inputFile, line);
+    istringstream iss(line);
+    int num;
+
+    while (iss >> num)
+    {
+        onlarBasamagi.ekle(num / 10);  // Onlar basamağı için
+        birlerBasamagi.ekle(num % 10); // Birler basamağı için
+    }
+
+    cout << "Onlar basamagi linked list:" << endl;
+    onlarBasamagi.yazdir();
+
+    cout << "Birler basamagi linked list:" << endl;
+    birlerBasamagi.yazdir();
+
+    int konumA, konumB;
+    cout << "Onlar basamagi icin KonumA degerini giriniz: ";
+    cin >> konumA;
+    cout << "Birler basamagi icin KonumB degerini giriniz: ";
+    cin >> konumB;
+
+    swapNodesBetweenLinkedLists(onlarBasamagi, birlerBasamagi, konumA, konumB);
+
+    cout << "Onlar basamagi linked list:" << endl;
+    onlarBasamagi.yazdir();
+
+    cout << "Birler basamagi linked list:" << endl;
+    birlerBasamagi.yazdir();
+
+    inputFile.close();
+}
 
 int main()
 {
-    FileHandler fileHandler("Sayilar.txt");
-    fileHandler.processFileAndDisplayArrays();
+    SwapLinkedLists();
 }

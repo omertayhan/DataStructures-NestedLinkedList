@@ -10,6 +10,7 @@ public:
 
     void yazdir();
     void cikar();
+    Dugum* get(int index);
 
 private:
     Dugum *ilk;

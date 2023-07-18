@@ -17,6 +17,21 @@ BagliListe::~BagliListe()
         delete silinecek;
     }
 }
+
+Dugum *BagliListe::get(int index)
+{
+    Dugum *temp = ilk;
+    int count = 0;
+
+    while (temp != nullptr && count < index)
+    {
+        temp = temp->sonraki;
+        count++;
+    }
+
+    return temp;
+}
+
 void BagliListe::ekle(int veri)
 {
     Dugum *yeni = new Dugum(veri);

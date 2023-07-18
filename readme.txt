@@ -15,3 +15,5 @@ aynı şekilde "onesLinkedLists" için de bunu "selectedListB" adlı bir değiş
 12. Aynı şekilde "tensLinkedLists" listesi için de aynı işlemi gerçekleştirelim ve "tensResults" adlı bir diziye ata, toplamını bulup dizi uzunluğuna bölelim.
 13. Ortalamayı bulmuş olduğumuz değeri "totalAlt" adlı bir değişkene ata.
 14. Son olarak, "totalUst" ve "totalAlt" değişkenlerini ekrana bastıralım.
+
+birler ve onlar linkedlistlerini daha büyük bir listeye baglayıp orada bu swap işlemini gerçekleştirelim
