@@ -1,48 +1,90 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
+#include "FileHandler.hpp"
 using namespace std;
 
-class FileHandler
+FileHandler::FileHandler(const string &filename) : file_name(filename) {}
+
+bool FileHandler::openFileForReading()
 {
-private:
-    string file_name;
-    ifstream infile;
-    ofstream outfile;
+    infile.open(file_name);
+    return infile.is_open();
+}
 
-public:
-    FileHandler(const string &filename) : file_name(filename) {}
+void FileHandler::closeFile()
+{
+    if (infile.is_open())
+        infile.close();
+}
 
-    bool openFileForReading()
+vector<int> FileHandler::readIntegersFromLine(const string &line, vector<int> &tens, vector<int> &ones)
+{
+    vector<int> numbers;
+    istringstream iss(line);
+    int num;
+    while (iss >> num)
     {
-        infile.open(file_name);
-        return infile.is_open();
+        numbers.push_back(num);
+        tens.push_back(num / 10);
+        ones.push_back(num % 10);
     }
+    return numbers;
+}
 
-    bool openFileForWriting()
+void FileHandler::processFileAndDisplayArrays()
+{
+    if (openFileForReading())
     {
-        outfile.open(file_name);
-        return outfile.is_open();
-    }
-
-    void closeFile()
-    {
-        if (infile.is_open())
-            infile.close();
-        if (outfile.is_open())
-            outfile.close();
-    }
-
-    string readLine()
-    {
+        vector<vector<int>> arrays;
+        vector<vector<int>> arraysTens;
+        vector<vector<int>> arraysOnes;
         string line;
-        getline(infile, line);
-        return line;
-    }
 
-    void writeLine(const string &line)
-    {
-        outfile << line << endl;
+        // Read each line and store numbers in separate arrays
+        while (getline(infile, line))
+        {
+            vector<int> numbers;
+            vector<int> tens;
+            vector<int> ones;
+            numbers = readIntegersFromLine(line, tens, ones);
+            arrays.push_back(numbers);
+            arraysTens.push_back(tens);
+            arraysOnes.push_back(ones);
+        }
+
+        closeFile();
+
+        // Display the content of each array
+        cout << "Numbers: " << endl;
+        for (const auto &arr : arrays)
+        {
+            for (int num : arr)
+            {
+                cout << num << " ";
+            }
+            cout << endl;
+        }
+
+        cout << "Tens: " << endl;
+        for (const auto &arr : arraysTens)
+        {
+            for (int num : arr)
+            {
+                cout << num << " ";
+            }
+            cout << endl;
+        }
+
+        cout << "Ones: " << endl;
+        for (const auto &arr : arraysOnes)
+        {
+            for (int num : arr)
+            {
+                cout << num << " ";
+            }
+            cout << endl;
+        }
     }
-};
+    else
+    {
+        cerr << "Failed to open the file for reading." << endl;
+    }
+}
