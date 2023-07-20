@@ -13,6 +13,7 @@ struct ParentNode {
     int value;
     ParentNode* next;
     ChildNode* child_list; // Inner linked list için child düğümü işareti
+     int satirSayisi;
 };
 
 ChildNode* createChildNode(int value);

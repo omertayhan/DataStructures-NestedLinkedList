@@ -11,14 +11,16 @@ using namespace std;
 
 int main()
 {
+    // ...
+
     ParentNode *parentList = nullptr;
-    BagliListe *list = new BagliListe();
+    ParentNode *lastProcessedParent = nullptr; // Keep track of the last processed ParentNode
 
     ifstream inputFile("Sayilar.txt");
 
     if (inputFile.is_open())
     {
-        int satirSayisi, prevSatirSayisi = 0;
+        int satirSayisi = 0; // Initialize satirSayisi to 0
         string line;
 
         while (getline(inputFile, line))
@@ -31,22 +33,34 @@ int main()
                 {
                     onlarBasamagi = (sayi / 10) % 10;
                     birlerBasamagi = sayi % 10;
-                    if (parentList == nullptr || satirSayisi > prevSatirSayisi)
+
+                    // Check if a new ParentNode needs to be created
+                    if (parentList == nullptr || lastProcessedParent == nullptr || satirSayisi > lastProcessedParent->satirSayisi)
                     {
-                        parentList = createParentNode(sayi);
-                        addChildList(parentList, onlarBasamagi);
+                        ParentNode *newParent = createParentNode(sayi);
+                        newParent->satirSayisi = satirSayisi; // Set satirSayisi for the new ParentNode
+                        addChildList(newParent, onlarBasamagi);
+
+                        // Update the pointers for the last processed ParentNode
+                        if (lastProcessedParent != nullptr)
+                            lastProcessedParent->next = newParent;
+
+                        lastProcessedParent = newParent;
+
+                        // If parentList is empty, set it to the newly created ParentNode
+                        if (parentList == nullptr)
+                            parentList = lastProcessedParent;
                     }
                     else
                     {
-                        addChildList(parentList, onlarBasamagi);
+                        addChildList(lastProcessedParent, onlarBasamagi);
                     }
-
-                    printLists(parentList);
                 }
             }
             satirSayisi++;
-            
         }
+
+        printLists(parentList);
 
         inputFile.close();
     }
@@ -55,7 +69,9 @@ int main()
         cerr << "Dosya acilamadi!" << endl;
     }
 
-    // Bellekten serbest bırakma (Memory deallocation)
+    // ...
+
+    // Memory deallocation
     while (parentList != nullptr)
     {
         ParentNode *tempParent = parentList;
