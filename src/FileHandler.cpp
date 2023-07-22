@@ -14,6 +14,7 @@ void FileHandler::closeFile()
     if (infile.is_open())
         infile.close();
 }
-ifstream& FileHandler::getInfile() {
+ifstream &FileHandler::getInfile()
+{
     return infile;
 }

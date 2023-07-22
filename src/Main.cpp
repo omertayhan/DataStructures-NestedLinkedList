@@ -2,9 +2,8 @@
 #include <iomanip>
 #include <string>
 #include <sstream>
-#include "BagliListe.hpp"
 #include "FileHandler.hpp"
-#include "nested_linked_list.hpp"
+#include "NestedLinkedList.hpp"
 using namespace std;
 
 // Memory deallocation
