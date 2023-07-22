@@ -1,3 +1,7 @@
+Kopya ihtimaline karşı gün gün commit atılan github reposu: https://github.com/omertayhan/DataStructures-NestedLinkedList 
+
+Kod Yazmaya başlamadan önce yazdığım kod tasarım ve planlamasına dair Taslak 
+
 1. Sayıları oku.
 2. Sayıları boşluklarla ayırarak "numbers" adlı bir diziye ata.
 3. Dizideki elemanların onlar ve birler basamağını "tensDigit" ve "onesDigit" adlı iki ayrı diziye ata.
@@ -15,5 +19,3 @@ aynı şekilde "onesLinkedLists" için de bunu "selectedListB" adlı bir değiş
 12. Aynı şekilde "tensLinkedLists" listesi için de aynı işlemi gerçekleştirelim ve "tensResults" adlı bir diziye ata, toplamını bulup dizi uzunluğuna bölelim.
 13. Ortalamayı bulmuş olduğumuz değeri "totalAlt" adlı bir değişkene ata.
 14. Son olarak, "totalUst" ve "totalAlt" değişkenlerini ekrana bastıralım.
-
-birler ve onlar linkedlistlerini daha büyük bir listeye baglayıp orada bu swap işlemini gerçekleştirelim
