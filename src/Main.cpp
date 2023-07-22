@@ -197,14 +197,15 @@ int main()
     ParentNode *parentListOnes = nullptr;
     ParentNode *lastProcessedParentOnes = nullptr; // Keep track of the last processed ParentNode
 
-    ifstream inputFile("Sayilar.txt");
+    const string filename = "Sayilar.txt";
+    FileHandler fileHandler(filename);
 
-    if (inputFile.is_open())
+    if (fileHandler.openFileForReading())
     {
         int satirSayisi = 0; // Initialize satirSayisi to 0
         string line;
 
-        while (getline(inputFile, line))
+        while (getline(fileHandler.getInfile(), line))
         {
             int sayi, onlarBasamagi, birlerBasamagi;
             istringstream iss(line);
@@ -229,7 +230,7 @@ int main()
         printf("Ust: %.2f\n", sumOfAveragesUp);
         printf("Ust: %.2f\n", sumOfAveragesDown);
 
-        inputFile.close();
+        fileHandler.closeFile();
     }
     else
     {

@@ -18,8 +18,7 @@ public:
 
     bool openFileForReading();
     void closeFile();
-    std::vector<int> readIntegersFromLine(const std::string &line, std::vector<int>& tens, std::vector<int>& ones);
-    void processFileAndDisplayArrays();
+    std::ifstream &getInfile();
 };
 
 #endif /* FILEHANDLER_HPP */
