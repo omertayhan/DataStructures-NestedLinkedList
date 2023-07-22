@@ -1,11 +1,11 @@
-/** 
-* @file NestedLinkedList.hpp
-* @description It contains about required actions methods in homework
-* @course VERİ YAPILARI 1. Öğretim B
-* @assignment 1.ÖDEV
-* @date 22.7.23
-* @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr, Doğan Alperen Memur dogan.memur@ogr.sakarya.edu.tr 
-*/
+/**
+ * @file NestedLinkedList.hpp
+ * @description It contains about required actions methods in homework
+ * @course VERİ YAPILARI 1. Öğretim B
+ * @assignment 1.ÖDEV
+ * @date 22.7.23
+ * @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr, Doğan Alperen Memur dogan.memur@ogr.sakarya.edu.tr
+ */
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -33,7 +33,7 @@ void DeallocationMemory(ParentNode *&parentList)
 }
 
 // Function to add parent list childlists
-void processNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int sayi, int satirSayisi, int onlarBasamagi)
+void addChildNodeToParentNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int sayi, int satirSayisi, int onlarBasamagi)
 {
     // Check if a new ParentNode needs to be created
     if (parentList == nullptr || lastProcessedParent == nullptr || satirSayisi > lastProcessedParent->satirSayisi)
@@ -70,7 +70,7 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
 
     // Find the parent node at position KonumB in ParentLinkedList 2
     ParentNode *parentB = parentList2;
-    for (int i = 1; i < KonumB && parentB != nullptr; ++i)
+    for (int i = 1; i <= KonumB && parentB != nullptr; ++i)
     {
         parentB = parentB->next;
     }
@@ -118,21 +118,68 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
     parentB->next = tempNextA;
 }
 
+// Function to get the total number of lines in a file
+int getTotalLinesFromFile(const string& filename)
+{
+    ifstream file(filename);
+    if (!file)
+    {
+        cerr << "Dosya acilamadi: " << filename << endl;
+        return -1;
+    }
+
+    int totalLines = 0;
+    string line;
+    while (getline(file, line))
+    {
+        totalLines++;
+    }
+
+    file.close();
+    return totalLines;
+}
+
+// Function to check if the given position is valid in the file
+bool isValidPosition(int position)
+{
+    
+    const string filename = "Sayilar.txt";
+    // Assuming you have a function to get the total number of lines in the file
+    int totalLines = getTotalLinesFromFile(filename); // Replace this with the actual function to get the total lines
+
+    return (position >= 0 && position <= totalLines);
+}
+
 // Function to get User input
 void getUserInputAndSwap(ParentNode *&parentList1, ParentNode *&parentList2)
 {
     int KonumA, KonumB;
 
-    std::cout << "KonumA: ";
-    std::cin >> KonumA;
+    while (true)
+    {
+        cout << "KonumA: ";
+        cin >> KonumA;
 
-    std::cout << "KonumB: ";
-    std::cin >> KonumB;
+        if (isValidPosition(KonumA))
+            break;
+        else
+            cout << "Hatali giris! KonumA dosyada gecerli bir satir degil." << endl;
+    }
+
+    while (true)
+    {
+        cout << "KonumB: ";
+        cin >> KonumB;
+
+        if (isValidPosition(KonumB))
+            break;
+        else
+            cout << "Hatali giris! KonumA dosyada gecerli bir satir degil." << endl;
+    }
 
     // Call the swapParentNodesBetweenLists function with user input
     swapParentNodesBetweenLists(parentList1, parentList2, KonumA, KonumB);
 }
-
 // Function to calculate the average of child nodes for all parents and sum them up
 double calculateParentListAveragesAndSum(ParentNode *parentList)
 {
@@ -208,7 +255,7 @@ int main()
 
     if (fileHandler.openFileForReading())
     {
-        int satirSayisi = 0; 
+        int satirSayisi = 0;
         string line;
 
         while (getline(fileHandler.getInfile(), line))
@@ -222,8 +269,8 @@ int main()
                     onlarBasamagi = (sayi / 10) % 10;
                     birlerBasamagi = sayi % 10;
 
-                    processNode(parentList, lastProcessedParent, sayi, satirSayisi, onlarBasamagi);
-                    processNode(parentListOnes, lastProcessedParentOnes, sayi, satirSayisi, birlerBasamagi);
+                    addChildNodeToParentNode(parentList, lastProcessedParent, sayi, satirSayisi, onlarBasamagi);
+                    addChildNodeToParentNode(parentListOnes, lastProcessedParentOnes, sayi, satirSayisi, birlerBasamagi);
                 }
             }
             satirSayisi++;
@@ -232,8 +279,9 @@ int main()
         getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
-        printf("Ust: %.2f\n", sumOfAveragesUp);
-        printf("Ust: %.2f\n", sumOfAveragesDown);
+        //Odevdeki cıktiya göre düzenlendi
+        printf("Ust: %.1f\n", sumOfAveragesUp);
+        printf("Alt: %.1f\n", sumOfAveragesDown);
 
         fileHandler.closeFile();
     }
