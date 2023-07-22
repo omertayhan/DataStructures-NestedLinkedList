@@ -1,4 +1,4 @@
-Kopya ihtimaline karşı gün gün commit atılan github reposu: https://github.com/omertayhan/DataStructures-NestedLinkedList 
+Github Repo: https://github.com/omertayhan/DataStructures-NestedLinkedList 
 
 Kod Yazmaya başlamadan önce yazdığım kod tasarım ve planlamasına dair Taslak 
 
