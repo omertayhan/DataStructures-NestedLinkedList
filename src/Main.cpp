@@ -33,7 +33,7 @@ void DeallocationMemory(ParentNode *&parentList)
 }
 
 // Function to add parent list childlists
-void processNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int sayi, int satirSayisi, int onlarBasamagi)
+void addChildNodeToParentNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int sayi, int satirSayisi, int onlarBasamagi)
 {
     // Check if a new ParentNode needs to be created
     if (parentList == nullptr || lastProcessedParent == nullptr || satirSayisi > lastProcessedParent->satirSayisi)
@@ -269,8 +269,8 @@ int main()
                     onlarBasamagi = (sayi / 10) % 10;
                     birlerBasamagi = sayi % 10;
 
-                    processNode(parentList, lastProcessedParent, sayi, satirSayisi, onlarBasamagi);
-                    processNode(parentListOnes, lastProcessedParentOnes, sayi, satirSayisi, birlerBasamagi);
+                    addChildNodeToParentNode(parentList, lastProcessedParent, sayi, satirSayisi, onlarBasamagi);
+                    addChildNodeToParentNode(parentListOnes, lastProcessedParentOnes, sayi, satirSayisi, birlerBasamagi);
                 }
             }
             satirSayisi++;
@@ -279,6 +279,7 @@ int main()
         getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
+        //Odevdeki cıktiya göre düzenlendi
         printf("Ust: %.1f\n", sumOfAveragesUp);
         printf("Alt: %.1f\n", sumOfAveragesDown);
 
