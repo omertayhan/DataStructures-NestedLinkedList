@@ -118,21 +118,68 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
     parentB->next = tempNextA;
 }
 
+// Function to get the total number of lines in a file
+int getTotalLinesFromFile(const string& filename)
+{
+    ifstream file(filename);
+    if (!file)
+    {
+        cerr << "Dosya acilamadi: " << filename << endl;
+        return -1;
+    }
+
+    int totalLines = 0;
+    string line;
+    while (getline(file, line))
+    {
+        totalLines++;
+    }
+
+    file.close();
+    return totalLines;
+}
+
+// Function to check if the given position is valid in the file
+bool isValidPosition(int position)
+{
+    
+    const string filename = "Sayilar.txt";
+    // Assuming you have a function to get the total number of lines in the file
+    int totalLines = getTotalLinesFromFile(filename); // Replace this with the actual function to get the total lines
+
+    return (position >= 0 && position <= totalLines);
+}
+
 // Function to get User input
 void getUserInputAndSwap(ParentNode *&parentList1, ParentNode *&parentList2)
 {
     int KonumA, KonumB;
 
-    std::cout << "KonumA: ";
-    std::cin >> KonumA;
+    while (true)
+    {
+        cout << "KonumA: ";
+        cin >> KonumA;
 
-    std::cout << "KonumB: ";
-    std::cin >> KonumB;
+        if (isValidPosition(KonumA))
+            break;
+        else
+            cout << "Hatali giris! KonumA dosyada gecerli bir satir degil." << endl;
+    }
+
+    while (true)
+    {
+        cout << "KonumB: ";
+        cin >> KonumB;
+
+        if (isValidPosition(KonumB))
+            break;
+        else
+            cout << "Hatali giris! KonumA dosyada gecerli bir satir degil." << endl;
+    }
 
     // Call the swapParentNodesBetweenLists function with user input
     swapParentNodesBetweenLists(parentList1, parentList2, KonumA, KonumB);
 }
-
 // Function to calculate the average of child nodes for all parents and sum them up
 double calculateParentListAveragesAndSum(ParentNode *parentList)
 {
@@ -232,8 +279,8 @@ int main()
         getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
-        printf("Ust: %.2f\n", sumOfAveragesUp);
-        printf("Alt: %.2f\n", sumOfAveragesDown);
+        printf("Ust: %.1f\n", sumOfAveragesUp);
+        printf("Alt: %.1f\n", sumOfAveragesDown);
 
         fileHandler.closeFile();
     }
