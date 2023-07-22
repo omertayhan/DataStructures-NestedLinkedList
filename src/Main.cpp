@@ -117,33 +117,17 @@ void getUserInputAndSwap(ParentNode *&parentList1, ParentNode *&parentList2)
 {
     int KonumA, KonumB;
 
-    std::cout << "Enter the value of KonumA: ";
+    std::cout << "KonumA: ";
     std::cin >> KonumA;
 
-    std::cout << "Enter the value of KonumB: ";
+    std::cout << "KonumB: ";
     std::cin >> KonumB;
 
     // Call the swapParentNodesBetweenLists function with user input
     swapParentNodesBetweenLists(parentList1, parentList2, KonumA, KonumB);
 }
 
-double calculateParentChildAverage(ParentNode *parent)
-{
-    double sum = 0.0;
-    int count = 0;
-    ChildNode *child = parent->child_list;
-
-    while (child != nullptr)
-    {
-        sum += child->value;
-        count++;
-        child = child->next;
-    }
-
-    return (count > 0) ? (sum / count) : 0.0;
-}
-
-// Function to calculate the average of child nodes for all parents and sum them
+// Function to calculate the average of child nodes for all parents and sum them up
 double calculateParentListAveragesAndSum(ParentNode *parentList)
 {
     double totalSum = 0.0;
@@ -194,6 +178,7 @@ double calculateParentListAveragesAndSum(ParentNode *parentList)
             currentParent = currentParent->next;
         }
 
+        // Only consider non-null child nodes for average calculation
         if (childNodeCount > 0)
         {
             totalSum += (sumOfCorrespondingChildNodes / childNodeCount);
