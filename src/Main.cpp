@@ -1,6 +1,13 @@
+/** 
+* @file NestedLinkedList.hpp
+* @description It contains about required actions methods in homework
+* @course VERİ YAPILARI 1. Öğretim B
+* @assignment 1.ÖDEV
+* @date 22.7.23
+* @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr
+*/
 #include <iostream>
 #include <iomanip>
-#include <string>
 #include <sstream>
 #include "FileHandler.hpp"
 #include "NestedLinkedList.hpp"
@@ -191,17 +198,17 @@ double calculateParentListAveragesAndSum(ParentNode *parentList)
 int main()
 {
     ParentNode *parentList = nullptr;
-    ParentNode *lastProcessedParent = nullptr; // Keep track of the last processed ParentNode
+    ParentNode *lastProcessedParent = nullptr;
 
     ParentNode *parentListOnes = nullptr;
-    ParentNode *lastProcessedParentOnes = nullptr; // Keep track of the last processed ParentNode
+    ParentNode *lastProcessedParentOnes = nullptr;
 
     const string filename = "Sayilar.txt";
     FileHandler fileHandler(filename);
 
     if (fileHandler.openFileForReading())
     {
-        int satirSayisi = 0; // Initialize satirSayisi to 0
+        int satirSayisi = 0; 
         string line;
 
         while (getline(fileHandler.getInfile(), line))
@@ -215,7 +222,6 @@ int main()
                     onlarBasamagi = (sayi / 10) % 10;
                     birlerBasamagi = sayi % 10;
 
-                    // Call the method with appropriate arguments
                     processNode(parentList, lastProcessedParent, sayi, satirSayisi, onlarBasamagi);
                     processNode(parentListOnes, lastProcessedParentOnes, sayi, satirSayisi, birlerBasamagi);
                 }

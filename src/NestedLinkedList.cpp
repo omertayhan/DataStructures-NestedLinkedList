@@ -1,3 +1,11 @@
+/** 
+* @file NestedLinkedList.cpp
+* @description Transactions of NestedLinkedList
+* @course VERİ YAPILARI 1. Öğretim B
+* @assignment 1.ÖDEV
+* @date 22.7.23
+* @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr
+*/
 #include "NestedLinkedList.hpp"
 
 ChildNode *createChildNode(int value)
