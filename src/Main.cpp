@@ -229,15 +229,11 @@ int main()
             satirSayisi++;
         }
 
-        // printLists(parentList);
-
-         getUserInputAndSwap(parentList, parentListOnes);
-
-        // printLists(parentList);
+        getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
         printf("Ust: %.2f\n", sumOfAveragesUp);
-        printf("Ust: %.2f\n", sumOfAveragesDown);
+        printf("Alt: %.2f\n", sumOfAveragesDown);
 
         fileHandler.closeFile();
     }
