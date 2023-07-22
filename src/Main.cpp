@@ -1,11 +1,11 @@
-/** 
-* @file NestedLinkedList.hpp
-* @description It contains about required actions methods in homework
-* @course VERİ YAPILARI 1. Öğretim B
-* @assignment 1.ÖDEV
-* @date 22.7.23
-* @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr, Doğan Alperen Memur dogan.memur@ogr.sakarya.edu.tr 
-*/
+/**
+ * @file NestedLinkedList.hpp
+ * @description It contains about required actions methods in homework
+ * @course VERİ YAPILARI 1. Öğretim B
+ * @assignment 1.ÖDEV
+ * @date 22.7.23
+ * @author ÖMER TUFAN AYHAN tufan.ayhan@ogr.sakarya.edu.tr, Doğan Alperen Memur dogan.memur@ogr.sakarya.edu.tr
+ */
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -70,7 +70,7 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
 
     // Find the parent node at position KonumB in ParentLinkedList 2
     ParentNode *parentB = parentList2;
-    for (int i = 1; i < KonumB && parentB != nullptr; ++i)
+    for (int i = 1; i <= KonumB && parentB != nullptr; ++i)
     {
         parentB = parentB->next;
     }
@@ -208,7 +208,7 @@ int main()
 
     if (fileHandler.openFileForReading())
     {
-        int satirSayisi = 0; 
+        int satirSayisi = 0;
         string line;
 
         while (getline(fileHandler.getInfile(), line))
@@ -229,7 +229,11 @@ int main()
             satirSayisi++;
         }
 
-        getUserInputAndSwap(parentList, parentListOnes);
+        // printLists(parentList);
+
+         getUserInputAndSwap(parentList, parentListOnes);
+
+        // printLists(parentList);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
         printf("Ust: %.2f\n", sumOfAveragesUp);
