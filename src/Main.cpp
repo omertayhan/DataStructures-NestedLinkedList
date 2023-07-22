@@ -7,9 +7,9 @@
 #include "nested_linked_list.hpp"
 using namespace std;
 
+// Memory deallocation
 void DeallocationMemory(ParentNode *&parentList)
 {
-    // Memory deallocation
     while (parentList != nullptr)
     {
         ParentNode *tempParent = parentList;
@@ -26,6 +26,7 @@ void DeallocationMemory(ParentNode *&parentList)
     }
 }
 
+// Function to add parent list childlists
 void processNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int sayi, int satirSayisi, int onlarBasamagi)
 {
     // Check if a new ParentNode needs to be created
@@ -51,6 +52,7 @@ void processNode(ParentNode *&parentList, ParentNode *&lastProcessedParent, int 
     }
 }
 
+// Function to swap indexes according to output
 void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentList2, int KonumA, int KonumB)
 {
     // Find the parent node at position KonumA in ParentLinkedList 1
@@ -110,6 +112,7 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
     parentB->next = tempNextA;
 }
 
+// Function to get User input
 void getUserInputAndSwap(ParentNode *&parentList1, ParentNode *&parentList2)
 {
     int KonumA, KonumB;
@@ -122,6 +125,83 @@ void getUserInputAndSwap(ParentNode *&parentList1, ParentNode *&parentList2)
 
     // Call the swapParentNodesBetweenLists function with user input
     swapParentNodesBetweenLists(parentList1, parentList2, KonumA, KonumB);
+}
+
+double calculateParentChildAverage(ParentNode *parent)
+{
+    double sum = 0.0;
+    int count = 0;
+    ChildNode *child = parent->child_list;
+
+    while (child != nullptr)
+    {
+        sum += child->value;
+        count++;
+        child = child->next;
+    }
+
+    return (count > 0) ? (sum / count) : 0.0;
+}
+
+// Function to calculate the average of child nodes for all parents and sum them
+double calculateParentListAveragesAndSum(ParentNode *parentList)
+{
+    double totalSum = 0.0;
+    int totalCount = 0;
+
+    // Find the parent with the maximum number of child nodes
+    int maxChildNodes = 0;
+    ParentNode *currentParent = parentList;
+    while (currentParent != nullptr)
+    {
+        ChildNode *child = currentParent->child_list;
+        int childCount = 0;
+        while (child != nullptr)
+        {
+            childCount++;
+            child = child->next;
+        }
+
+        if (childCount > maxChildNodes)
+            maxChildNodes = childCount;
+
+        currentParent = currentParent->next;
+    }
+
+    // Calculate the average of corresponding child nodes for all parents and sum them up
+    for (int i = 0; i < maxChildNodes; i++)
+    {
+        double sumOfCorrespondingChildNodes = 0.0;
+        int childNodeCount = 0;
+
+        currentParent = parentList;
+        while (currentParent != nullptr)
+        {
+            ChildNode *child = currentParent->child_list;
+            int count = i;
+            while (count > 0 && child != nullptr)
+            {
+                child = child->next;
+                count--;
+            }
+
+            if (child != nullptr)
+            {
+                sumOfCorrespondingChildNodes += child->value;
+                childNodeCount++;
+            }
+
+            currentParent = currentParent->next;
+        }
+
+        if (childNodeCount > 0)
+        {
+            totalSum += (sumOfCorrespondingChildNodes / childNodeCount);
+            totalCount++;
+        }
+    }
+
+    return (totalCount > 0) ? totalSum : 0.0;
 }
 
 int main()
@@ -158,14 +238,11 @@ int main()
             satirSayisi++;
         }
 
-        printLists(parentList);
-        cout << endl;
-        printLists(parentListOnes);
         getUserInputAndSwap(parentList, parentListOnes);
-
-        printLists(parentList);
-        cout << endl;
-        printLists(parentListOnes);
+        double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
+        double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
+        printf("Ust: %.2f\n", sumOfAveragesUp);
+        printf("Ust: %.2f\n", sumOfAveragesDown);
 
         inputFile.close();
     }
