@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <cmath>
 #include "FileHandler.hpp"
 #include "NestedLinkedList.hpp"
 using namespace std;
@@ -119,7 +120,7 @@ void swapParentNodesBetweenLists(ParentNode *&parentList1, ParentNode *&parentLi
 }
 
 // Function to get the total number of lines in a file
-int getTotalLinesFromFile(const string& filename)
+int getTotalLinesFromFile(const string &filename)
 {
     ifstream file(filename);
     if (!file)
@@ -142,7 +143,7 @@ int getTotalLinesFromFile(const string& filename)
 // Function to check if the given position is valid in the file
 bool isValidPosition(int position)
 {
-    
+
     const string filename = "Sayilar.txt";
     // Assuming you have a function to get the total number of lines in the file
     int totalLines = getTotalLinesFromFile(filename); // Replace this with the actual function to get the total lines
@@ -232,9 +233,11 @@ double calculateParentListAveragesAndSum(ParentNode *parentList)
         }
 
         // Only consider non-null child nodes for average calculation
+        //  ODEVDEKİ ÇIKTIYA GÖRE DÜZENLENDİ
         if (childNodeCount > 0)
         {
             totalSum += (sumOfCorrespondingChildNodes / childNodeCount);
+            totalSum = floorf(totalSum * 10.0) / 10.0;
             totalCount++;
         }
     }
@@ -279,9 +282,8 @@ int main()
         getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
-        //Odevdeki cıktiya göre düzenlendi
-        printf("Ust: %.1f\n", sumOfAveragesUp);
-        printf("Alt: %.1f\n", sumOfAveragesDown);
+        cout << "Ust: " << sumOfAveragesUp<< endl;
+        cout << "Alt: " << sumOfAveragesDown<< endl;
 
         fileHandler.closeFile();
     }
