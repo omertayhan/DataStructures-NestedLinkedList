@@ -237,7 +237,6 @@ double calculateParentListAveragesAndSum(ParentNode *parentList)
         if (childNodeCount > 0)
         {
             totalSum += (sumOfCorrespondingChildNodes / childNodeCount);
-            totalSum = floorf(totalSum * 10.0) / 10.0;
             totalCount++;
         }
     }
@@ -282,8 +281,8 @@ int main()
         getUserInputAndSwap(parentList, parentListOnes);
         double sumOfAveragesUp = calculateParentListAveragesAndSum(parentList);
         double sumOfAveragesDown = calculateParentListAveragesAndSum(parentListOnes);
-        cout << "Ust: " << sumOfAveragesUp<< endl;
-        cout << "Alt: " << sumOfAveragesDown<< endl;
+        cout << "Ust: " << sumOfAveragesUp << endl;
+        cout << "Alt: " << sumOfAveragesDown << endl;
 
         fileHandler.closeFile();
     }
